@@ -1,0 +1,5 @@
+---
+applications:
+  - name: svc-caiman-user-management-ent-mock-server
+    memory: 64M
+    instances: 1

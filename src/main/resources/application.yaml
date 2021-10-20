@@ -1,0 +1,31 @@
+resilience4j:
+  circuitbreaker:
+    instances:
+      userService:
+        slidingWindowSize: 5
+        slidingWindowType: COUNT_BASED
+        #waitDurationInOpenState: 5
+        waitInterval: 10000
+        failureRateThreshold: 2
+        permittedNumberOfCallsInHalfOpenState: 3
+        registerHealthIndicator: true
+        allowHealthIndicatorToFail: true
+        recordExceptions:
+          - java.io.IOException
+          - java.util.concurrent.TimeoutException
+          - org.springframework.web.client.ResourceAccessException
+        #ignoreExceptions:
+          #- com.diway.models.MyException
+    configs:
+      default:
+        registerHealthIndicator: true
+
+management.health.circuitbreakers.enabled: true
+management:
+  endpoint:
+    health:
+      show-details: always
+
+downstream:
+  base: http://localhost:3000/
+  url: v1/downstream/response
